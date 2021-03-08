@@ -6,6 +6,8 @@ orbs:
 
 jobs:
   executar-testes-do-serverest:
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - run: node --version
       - run:
