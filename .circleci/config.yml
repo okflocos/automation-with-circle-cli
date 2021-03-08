@@ -13,8 +13,10 @@ jobs:
       - run:
           name: Checkout do projeto
           command: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
-      - node/install-packages
-      - run: npm test
+      - run:
+          name: Instalar as dependências
+          command: cd ServeRest; npm install
+      - run: cd ServeRest; npm test
 
 workflows:
   integracao_continua:
