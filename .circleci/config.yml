@@ -5,7 +5,7 @@ orbs:
   node: circleci/node@2.0.2
 
 jobs:
-  executar-testes-do-serverest:
+  publicar-o-site-em-prod:
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -32,25 +32,37 @@ jobs:
           name: Validar lint do ServeRest
           command: cd ServeRest; npm run lint
   
-  pai-de-todos:
+  testes-api:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      - run:
-          name: Checkout do projeto
-          command: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
-      - run:
-          name: Instalar as dependências
-          command: cd ServeRest; npm install
-      - run:
-          name: Validar lint do ServeRest
-          command: cd ServeRest; npm run lint
+      - run: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
+  
+  testes-e2e:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - run: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
+  
+ publicar-pagina-em-homolog:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - run: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
+      
+   
 
 workflows:
   integracao_continua:
     jobs:
-      - pai-de-todos
-      - executar-testes-do-serverest:
-          requires:
-            - pai-de-todos
+      - testes-api
       - check-lint
+      - publicar-pagina-em-homolog
+      - testes-e2e:
+          requires:
+            - publicar-pagina-em-homolog
+      - publicar-o-site-em-prod:
+          requires:
+            - testes-api
+            - check-lint
+            - testes-e2e
