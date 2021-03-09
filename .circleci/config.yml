@@ -43,8 +43,8 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - run: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
-  
- publicar-pagina-em-homolog:
+      
+  publicar-pagina-em-homolog:
     machine:
       image: ubuntu-2004:202010-01
     steps:
