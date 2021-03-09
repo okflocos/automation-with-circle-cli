@@ -17,8 +17,23 @@ jobs:
           name: Instalar as dependências
           command: cd ServeRest; npm install
       - run: cd ServeRest; npm test
+  
+  check-lint:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - run:
+          name: Checkout do projeto
+          command: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
+      - run:
+          name: Instalar as dependências
+          command: cd ServeRest; npm install
+      - run:
+          name: Validar lint do ServeRest
+          command: cd ServeRest; npm run lint
 
 workflows:
   integracao_continua:
     jobs:
       - executar-testes-do-serverest
+      - check-lint
