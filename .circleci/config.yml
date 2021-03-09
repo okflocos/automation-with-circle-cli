@@ -50,7 +50,7 @@ workflows:
   integracao_continua:
     jobs:
       - pai-de-todos
-      - executar-testes-do-serverest
+      - executar-testes-do-serverest:
           requires:
             - pai-de-todos
       - check-lint
