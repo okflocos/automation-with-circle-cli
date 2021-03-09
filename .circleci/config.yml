@@ -31,9 +31,26 @@ jobs:
       - run:
           name: Validar lint do ServeRest
           command: cd ServeRest; npm run lint
+  
+  pai-de-todos:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - run:
+          name: Checkout do projeto
+          command: git clone https://github.com/PauloGoncalvesBH/ServeRest.git
+      - run:
+          name: Instalar as dependências
+          command: cd ServeRest; npm install
+      - run:
+          name: Validar lint do ServeRest
+          command: cd ServeRest; npm run lint
 
 workflows:
   integracao_continua:
     jobs:
+      - pai-de-todos
       - executar-testes-do-serverest
+          requires:
+            - pai-de-todos
       - check-lint
